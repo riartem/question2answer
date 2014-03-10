@@ -35,10 +35,11 @@
 	Create a new post in the database and return its ID (based on auto-incrementing)
 */
 	{
+        $slug = strtolower(Translit::slug($title));
 		qa_db_query_sub(
-			'INSERT INTO ^posts (categoryid, type, parentid, userid, cookieid, createip, title, content, format, tags, notify, name, created) '.
-			'VALUES (#, $, #, $, #, INET_ATON($), $, $, $, $, $, $, NOW())',
-			$categoryid, $type, $parentid, $userid, $cookieid, $ip, $title, $content, $format, $tagstring, $notify, $name
+			'INSERT INTO ^posts (categoryid, type, parentid, userid, cookieid, createip, title, slug, content, format, tags, notify, name, created) '.
+			'VALUES (#, $, #, $, #, INET_ATON($), $, $, $, $, $, $, $, NOW())',
+			$categoryid, $type, $parentid, $userid, $cookieid, $ip, $title, $slug, $content, $format, $tagstring, $notify, $name
 		);
 		
 		return qa_db_last_insert_id();

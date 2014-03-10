@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Question2Answer by Gideon Greenspan and contributors
+	Question2Answer (c) Gideon Greenspan
 
 	http://www.question2answer.org/
 
@@ -38,7 +38,7 @@
 	require_once QA_INCLUDE_DIR.'qa-page-question-view.php';
 	require_once QA_INCLUDE_DIR.'qa-app-updates.php';
 	
-	$questionid=qa_request_part(0);
+	$questionid=qa_request_part(0); $questionslug =qa_request_part(1);
 	$userid=qa_get_logged_in_userid();
 	$cookieid=qa_cookie_get();
 
@@ -46,7 +46,7 @@
 //	Get information about this question
 
 	list($question, $childposts, $achildposts, $parentquestion, $closepost, $extravalue, $categories, $favorite)=qa_db_select_with_pending(
-		qa_db_full_post_selectspec($userid, $questionid),
+		qa_db_full_post_selectspec($userid, $questionid, $questionslug),
 		qa_db_full_child_posts_selectspec($userid, $questionid),
 		qa_db_full_a_child_posts_selectspec($userid, $questionid),
 		qa_db_post_parent_q_selectspec($questionid),

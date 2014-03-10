@@ -314,7 +314,7 @@
 	Return the full information from the database for $postid in an array.
 */
 	{
-		$post=qa_db_single_select(qa_db_full_post_selectspec(null, $postid));
+		$post=qa_db_single_select(qa_db_full_post_selectspec(null, $postid, $slug));
 			
 		if (!is_array($post))
 			qa_fatal_error('Post ID could not be found: '.$postid);

@@ -1,7 +1,6 @@
 <?php
-
 /*
-	Question2Answer by Gideon Greenspan and contributors
+	Question2Answer (c) Gideon Greenspan
 
 	http://www.question2answer.org/
 
@@ -23,7 +22,7 @@
 
 	More about this license: http://www.question2answer.org/license.php
 */
-
+require 'translit.php';
 //	Try our best to set base path here just in case it wasn't set in index.php (pre version 1.0.1)
 
 	if (!defined('QA_BASE_DIR'))
@@ -60,7 +59,7 @@
 				$urlformat=QA_URL_FORMAT_NEAT;
 				$requestparts=explode('/', qa_gpc_to_string($_GET['qa-rewrite']));
 				unset($_GET['qa-rewrite']);
-				
+
 				if (!empty($_SERVER['REQUEST_URI'])) { // workaround for the fact that Apache unescapes characters while rewriting
 					$origpath=$_SERVER['REQUEST_URI'];
 					$_GET=array();
@@ -93,7 +92,7 @@
 				}
 
 				$relativedepth=count($requestparts);
-				
+
 			} elseif (isset($_GET['qa'])) {
 				if (strpos($_GET['qa'], '/')===false) {
 					$urlformat=( (empty($_SERVER['REQUEST_URI'])) || (strpos($_SERVER['REQUEST_URI'], '/index.php')!==false) )
@@ -139,7 +138,7 @@
 			$replacement=array_search(@$requestparts[$key], qa_get_request_map());
 			if ($replacement!==false)
 				$requestparts[$key]=$replacement;
-		
+
 			qa_set_request(
 				implode('/', $requestparts),
 				($relativedepth>1) ? str_repeat('../', $relativedepth-1) : './',

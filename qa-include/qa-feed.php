@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Question2Answer by Gideon Greenspan and contributors
+	Question2Answer (c) Gideon Greenspan
 
 	http://www.question2answer.org/
 
@@ -317,7 +317,7 @@
 			if ($full)
 				$htmlcontent=qa_viewer_html($question['content'], $question['format'], $options);
 		}
-			
+
 		if ($feedtype=='search') {
 			$titleprefix='';
 			$urlxml=qa_xml($question['url']);

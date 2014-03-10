@@ -1,0 +1,2 @@
+ALTER TABLE `qa_posts`
+	ADD COLUMN `slug` VARCHAR(800) NULL DEFAULT NULL AFTER `title`;

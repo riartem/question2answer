@@ -1221,7 +1221,7 @@
 	Return the Q2A request for question $questionid, and make it search-engine friendly based on $title, which is
 	shortened if necessary by removing shorter words which are generally less meaningful.
 */
-	{
+	{ $title = Translit::slug($title);
 		if (qa_to_override(__FUNCTION__)) { $args=func_get_args(); return qa_call_override(__FUNCTION__, $args); }
 		
 		require_once QA_INCLUDE_DIR.'qa-app-options.php';
@@ -1272,7 +1272,7 @@
 	Return the URL for question $questionid with $title, possibly using $absolute URLs.
 	To link to a specific answer or comment in a question, set $showtype and $showid accordingly.
 */
-	{
+	{ $title = Translit::slug($title);
 		if (qa_to_override(__FUNCTION__)) { $args=func_get_args(); return qa_call_override(__FUNCTION__, $args); }
 		
 		if ( (($showtype=='Q') || ($showtype=='A') || ($showtype=='C')) && isset($showid))  {
@@ -1283,7 +1283,7 @@
 			$params=null;
 			$anchor=null;
 		}
-		
+
 		return qa_path(qa_q_request($questionid, $title), $params, $absolute ? qa_opt('site_url') : null, null, $anchor);
 	}
 	

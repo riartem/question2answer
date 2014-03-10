@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Question2Answer by Gideon Greenspan and contributors
+	Question2Answer (c) Gideon Greenspan
 
 	http://www.question2answer.org/
 
@@ -1469,12 +1469,13 @@
 				'</div>'
 			);
 		}
-		
+
+
 		function q_item_title($q_item)
 		{
 			$this->output(
 				'<div class="qa-q-item-title">',
-				'<a href="'.$q_item['url'].'">'.$q_item['title'].'</a>',
+				'<a href="'.$q_item['raw']['postid'].'/'.$q_item['raw']['slug'].'">'.$q_item['title'].'</a>',
 				'</div>'
 			);
 		}

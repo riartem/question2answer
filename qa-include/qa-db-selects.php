@@ -128,7 +128,7 @@
 			'columns' => array(
 				'^posts.postid', '^posts.categoryid', '^posts.type', 'basetype' => 'LEFT(^posts.type, 1)', 'hidden' => "INSTR(^posts.type, '_HIDDEN')>0",
 				'^posts.acount', '^posts.selchildid', '^posts.closedbyid', '^posts.upvotes', '^posts.downvotes', '^posts.netvotes', '^posts.views', '^posts.hotness',
-				'^posts.flagcount', '^posts.title', '^posts.tags', 'created' => 'UNIX_TIMESTAMP(^posts.created)', '^posts.name',
+				'^posts.flagcount', '^posts.title', '^posts.slug', '^posts.tags', 'created' => 'UNIX_TIMESTAMP(^posts.created)', '^posts.name',
 				'categoryname' => '^categories.title', 'categorybackpath' => "^categories.backpath",
 				'categoryids' => "CONCAT_WS(',', ^posts.catidpath1, ^posts.catidpath2, ^posts.catidpath3, ^posts.categoryid)",
 			),
@@ -137,8 +137,7 @@
 			'source' => '^posts LEFT JOIN ^categories ON ^categories.categoryid=^posts.categoryid',
 			'arguments' => array(),
 		);
-		
-		if (isset($voteuserid)) {
+        if (isset($voteuserid)) {
 			require_once QA_INCLUDE_DIR.'qa-app-updates.php';
 			
 			$selectspec['columns']['uservote']='^uservotes.vote';
@@ -152,7 +151,7 @@
 		if ($full) {
 			$selectspec['columns']['content']='^posts.content';
 			$selectspec['columns']['notify']='^posts.notify';
-			$selectspec['columns']['updated']='UNIX_TIMESTAMP(^posts.updated)';
+            $selectspec['columns']['updated']='UNIX_TIMESTAMP(^posts.updated)';
 			$selectspec['columns']['updatetype']='^posts.updatetype';
 			$selectspec['columns'][]='^posts.format';
 			$selectspec['columns'][]='^posts.lastuserid';
@@ -185,7 +184,7 @@
 			
 			$selectspec['source'].=' LEFT JOIN ^userpoints ON ^posts.userid=^userpoints.userid';
 		}
-		
+
 		return $selectspec;
 	}
 	
@@ -576,15 +575,16 @@
 	}
 
 	
-	function qa_db_full_post_selectspec($voteuserid, $postid)
+	function qa_db_full_post_selectspec($voteuserid, $postid, $slug)
 /*
 	Return the selectspec to retrieve the full information for $postid, with the corresponding vote made by $voteuserid (if not null)
 */
 	{
 		$selectspec=qa_db_posts_basic_selectspec($voteuserid, true);
 
-		$selectspec['source'].=" WHERE ^posts.postid=#";
+		$selectspec['source'].=" WHERE ^posts.postid=# AND ^posts.slug=#";
 		$selectspec['arguments'][]=$postid;
+        $selectspec['arguments'][]=$slug;
 		$selectspec['single']=true;
 
 		return $selectspec;

@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Question2Answer by Gideon Greenspan and contributors
+	Question2Answer (c) Gideon Greenspan
 
 	http://www.question2answer.org/
 
@@ -145,8 +145,8 @@
 				$questionid=qa_question_create($followanswer, $userid, qa_get_logged_in_handle(), $cookieid,
 					$in['title'], $in['content'], $in['format'], $in['text'], isset($in['tags']) ? qa_tags_to_tagstring($in['tags']) : '',
 					$in['notify'], $in['email'], $in['categoryid'], $in['extra'], $in['queued'], $in['name']);
-				
-				qa_redirect(qa_q_request($questionid, $in['title'])); // our work is done here
+
+				qa_redirect(qa_q_request($questionid, strtolower(Translit::slug($in['title'])))); // our work is done here
 			}
 		}
 	}
